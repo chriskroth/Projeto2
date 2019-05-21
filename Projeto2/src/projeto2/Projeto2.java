@@ -15,7 +15,9 @@ public class Projeto2 {
     public static void main(String[] args) {
         Map<Integer,Estatistica> map = new TreeMap<Integer,Estatistica>();
         //SimpleReader f = new SimpleReader("C:\\Users\\cfkroth\\desktop\\game-reviews.csv");
-        SimpleReader f = new SimpleReader("C:\\Users\\Christian F. Kroth\\desktop\\game-reviews.csv");
+        
+        // Lê arquivo csv.
+        SimpleReader f = new SimpleReader("C:\\Users\\Christian F. Kroth\\desktop\\game-reviews.csv"); 
         String s = f.readLine();
         
         boolean primeiraLinha = true;
@@ -33,16 +35,19 @@ public class Projeto2 {
                 int ano = Integer.parseInt(colunas[6]);
                 
                 if(map.get(ano) == null){
+                    // Se o ano ainda não existir no dicionário ele adiciona o ano.                  
                     int qtdeMediocre = 0;
+                    // Faz a contagem de Mediocres
                     if(frase.equals("Mediocre")){
                         qtdeMediocre = 1;
                     }
-                    
+                    // Faz a contagem dos jogos de ação
                     int qtdeAction = 0;
                     if(genero.equals("Action")){
                         qtdeAction = 1;
                     }
                     
+                    // Seta os valores na classe que será adicionada ao dicionário 
                     Estatistica estatistica = new Estatistica();
                     estatistica.setNroReviews(1);
                     estatistica.setQtdeMediocre(qtdeMediocre);
@@ -54,26 +59,31 @@ public class Projeto2 {
                     estatistica.addPontuacao(pontuacao);
                     estatistica.setQtdeAction(qtdeAction);
                     
+                    // Adiciona o item no dicionário de acordo com o ano.
                     map.put(ano, estatistica);
                 }else{
                     map.get(ano).setNroReviews(map.get(ano).getNroReviews() + 1);
                     map.get(ano).setSomaPontuacao(map.get(ano).getSomaPontuacao() + pontuacao);
                     map.get(ano).addPontuacao(pontuacao);
                     
+                    // Verifica Melhor jogo
                     if(pontuacao > map.get(ano).getPontosMelhorJogo()){
                         map.get(ano).setMelhorJogo(titulo);
                         map.get(ano).setPontosMelhorJogo(pontuacao);
                     }
                     
+                    // Verivica pior jogo
                     if(pontuacao < map.get(ano).getPontosPiorJogo()){
                         map.get(ano).setPiorJogo(titulo);
                         map.get(ano).setPontosPiorJogo(pontuacao);
                     }
                     
+                    // Conta os medíocres
                     if(frase.equals("Mediocre")){
                         map.get(ano).setQtdeMediocre(map.get(ano).getQtdeMediocre()+ 1);
                     }
                     
+                    // Conta os jogos de ação                    
                     if(genero.equals("Action")){
                         map.get(ano).setQtdeAction(map.get(ano).getQtdeAction() + 1);
                     }
@@ -89,7 +99,7 @@ public class Projeto2 {
         DecimalFormat df = new DecimalFormat("#.00");
         int anoAction = 0;
         int qtdeAction = 0;
-        
+        // De acordo  com o ano printa os dados pedidos
         for(int ano : map.keySet()){
             Estatistica es = map.get(ano);
             
