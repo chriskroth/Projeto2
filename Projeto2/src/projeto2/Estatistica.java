@@ -3,9 +3,10 @@ package projeto2;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe base das estatísticas
  * @author cfkroth
  */
+
 public class Estatistica {
     private int nroReviews;
     private String melhorJogo;
